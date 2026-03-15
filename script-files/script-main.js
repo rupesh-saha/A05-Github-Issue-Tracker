@@ -192,7 +192,7 @@ document.getElementById("search-btn-device").
           </div>
 
           <p class="text-[#64748B] mb-6">
-            The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.
+            ${detail.description}
           </p>
 
           <div class="rounded-lg p-4 bg-[#f8fafc] flex gap-25 items-center">
