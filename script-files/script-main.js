@@ -179,7 +179,7 @@ document.getElementById("search-btn-device").
 
   detailContainer.innerHTML = `
     <div>
-          <h2 class="text-3xl font-bold mb-3">Fix broken image uploads</h2>
+          <h2 class="text-3xl font-bold mb-3">${detail.title}</h2>
 
           <div class="flex gap-1 items-center">
             <a class="text-xs px-3 py-1 rounded-full w-fit ${statusClass} font-semibold">${detail.status}</a>
