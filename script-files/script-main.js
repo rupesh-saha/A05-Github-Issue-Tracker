@@ -1,10 +1,13 @@
+let allIssueData = [];
 
 const loadAllIssue = () => {
   const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
   fetch(url)
     .then((res) => res.json())
     .then((issues) => {
-      showAllIssue(issues.data);
+      allIssueData = issues.data;
+      showAllIssue(allIssueData);
+      totalStat();
     })
 }
 
@@ -62,4 +65,88 @@ const createBtn = (arr) => {
   return htmlElement.join(" ");
 }
 
+
+let currentTab = "all";
+
+const filterIssue = (tabName) => {
+  let filtered;
+
+  if (tabName === "all") {
+    filtered = allIssueData;
+  }
+  else {
+    filtered = allIssueData.filter(issue => issue.status === tabName);
+  }
+
+  showAllIssue(filtered);
+  totalStat();
+} 
+
+const removeActive = () => {
+  const allBtn = document.querySelectorAll(".tab-btn");
+  allBtn.forEach((btn)=>{
+    btn.classList.remove("active");
+  })
+}
+
+const switchTab = (tabName) => {
+  removeActive();
+  const clickBtn = document.getElementById(`${tabName}-btn`);
+  console.log(clickBtn);
+  clickBtn.classList.add("active");
+
+  filterIssue(tabName);
+  totalStat();
+}
+
+const totalStat = () => {
+  const issueContainer = document.getElementById("issue-container");
+
+  const issueCounter = document.getElementById("issue-counter");
+
+  issueCounter.innerText = issueContainer.children.length;
+}
+
+document.getElementById("search-btn").
+  addEventListener("click", () => {
+    removeActive();
+    const input = document.getElementById("search-input");
+    const searched = input.value.trim().toLowerCase();
+
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searched}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((issues) => {
+        removeActive();
+        showAllIssue(issues.data);
+        totalStat();
+      });
+
+  });
+
+document.getElementById("search-btn-device").
+  addEventListener("click", () => {
+    removeActive();
+    const input = document.getElementById("search-input-device");
+    const searched = input.value.trim().toLowerCase();
+
+    const url = `https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=${searched}`;
+
+    fetch(url)
+      .then((res) => res.json())
+      .then((issues) => {
+        removeActive();
+        showAllIssue(issues.data);
+        totalStat();
+      });
+    
+    totalStat();
+  });
+
+  
+
+
 loadAllIssue();
+totalStat();
+
