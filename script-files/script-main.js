@@ -198,7 +198,7 @@ document.getElementById("search-btn-device").
           <div class="rounded-lg p-4 bg-[#f8fafc] flex gap-25 items-center">
             <div>
               <h2 class="text-[#64748B] font-light">Assignee:</h2>
-              <h2 class="font-semibold">${detail.assignee}</h2>
+              <h2 class="font-semibold">${detail.assignee || "N/A"}</h2>
             </div>
             <div>
               <h2 class="text-[#64748B] font-light mb-1">Priority:</h2>
